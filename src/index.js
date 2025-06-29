@@ -1,8 +1,21 @@
-//The first function. Remove this.
-const btn = document.querySelector("button");
-console.log("Hello");
 
-btn.onclick = function () {
-  console.log("You ran some JavaScript");
-  alert("You ran some JavaScript");
-};
+window.loadNotes = (json) => {
+const app = Vue.createApp({
+  data() {
+      return {
+          notes: JSON.parse(json)
+      };
+  },
+  computed: {
+      pierNotes() {
+          return this.notes.filter(note => note.Type === 'Pier').sort((a, b) => a.Pier - b.Pier);
+      },
+      generalNotes() {
+          return this.notes.filter(note => note.Type !== 'Pier');
+      }
+  }
+});
+
+app.mount('#app');
+
+}

@@ -2,16 +2,38 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
     <style>
       @import "./src/style.css";
     </style>
-    <title>JSDev</title>
   </head>
   <body>
-    <h1>Alright. You're set.</h1>
-      <h2 class="tintedBlackLeft">Now build something amazing!</h2>
-      <p>JS in FM is amazing</p>
-    <button type="button">Click Me!</button>
+    <div id="app" class="container">
+      <!-- Piers Section -->
+      <div v-if="notes.some(note => note.Type === 'Pier')">
+          <h2>Piers</h2>
+          <div v-for="note in pierNotes" :key="note.__ID" class="card">
+              <p><strong>Date:</strong> {{ note.Date }}</p>
+              <p><strong>Pier:</strong> {{ note.Pier }}</p>
+              <p><strong>Depth:</strong> {{ note.Depth }}</p>
+              <p><strong>Location:</strong> {{ note.Location }}</p>
+              <p><strong>Note:</strong> {{ note.Note }}</p>
+              <img v-if="note.PhotoURL" :src="note.PhotoURL" alt="Note Image" />
+          </div>
+      </div>
+      
+      <!-- General Section -->
+      <div v-if="notes.some(note => note.Type !== 'Pier')">
+          <h2>General</h2>
+          <div v-for="note in generalNotes" :key="note.__ID" class="card">
+              <p><strong>Date:</strong> {{ note.Date }}</p>
+              <p><strong>Location:</strong> {{ note.Location }}</p>
+              <p><strong>Note:</strong> {{ note.Note }}</p>
+              <img v-if="note.PhotoURL" :src="note.PhotoURL" alt="Note Image" />
+          </div>
+      </div>
+  </div>
 
     <script type="module">
       import "./src/index.js";
